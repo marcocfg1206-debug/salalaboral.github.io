@@ -21,11 +21,37 @@ main{max-width:1520px;margin:20px auto;padding:0 15px}.panel{padding:21px;margin
 .dock{position:fixed;z-index:100;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:11px;padding:11px 20px;border:1px solid rgba(255,255,255,.18);border-radius:22px;background:rgba(7,16,29,.91);box-shadow:0 12px 38px rgba(0,0,0,.5);backdrop-filter:blur(20px)}.footer{text-align:center;color:var(--muted);padding:15px}.signature{display:none}.print-only{display:none}
 @media(max-width:900px){.summary-grid{grid-template-columns:repeat(3,1fr)}.coord-grid{grid-template-columns:1fr}.dock{width:calc(100% - 18px);justify-content:center;flex-wrap:wrap}.btn{padding:9px 11px}}
 @page{size:A4 landscape;margin:10mm 9mm 13mm}@media print{body{background:#fff;color:#17202a;padding:0;font:9px Arial,sans-serif}.login,.dock,.option-grid,.no-print{display:none!important}.print-only{display:block}.header{background:#fff!important;box-shadow:none;border-bottom:3px solid var(--navy);padding:4px 0 8px}.header h1{color:var(--navy);background:none;font-size:19px}.header p{color:#52606d}.glass{background:#fff;box-shadow:none;border:1px solid #b8c2cc;border-radius:4px;backdrop-filter:none}main{max-width:none;margin:6px 0;padding:0}.panel{padding:8px;margin-bottom:7px;overflow:visible;break-inside:auto}h2{font-size:13px;color:var(--navy);border-bottom:2px solid #d6dee6;margin-bottom:6px;padding-bottom:4px}.sub,.small{color:#52606d}.note{color:#263746;background:#eef5f9;border-left-color:var(--navy);padding:6px;margin:5px 0}.summary-grid{grid-template-columns:repeat(6,1fr);gap:4px}.summary{background:#eef2f6!important;color:#102a43;border:1px solid #aab7c4;padding:5px;box-shadow:none}.summary b{font-size:16px}.table-wrap{overflow:visible;border:0}table{min-width:0;table-layout:fixed}th{background:var(--navy)!important;color:#fff;padding:4px;print-color-adjust:exact;-webkit-print-color-adjust:exact}td{color:#17202a;padding:4px;border:1px solid #c8d1da;line-height:1.22;overflow-wrap:anywhere}.badge{print-color-adjust:exact;-webkit-print-color-adjust:exact}.audit-break{break-before:page}.absence-grid{grid-template-columns:repeat(3,1fr);gap:5px}.absence-card{padding:6px;color:#17202a;background:#fff}.absence-card:not(.active){display:none}.absence-card input,.absence-card textarea{display:none}.coverage{color:#17202a;background:#edf7f4}.coord-grid{grid-template-columns:repeat(3,1fr);gap:5px}.coord{padding:7px;color:#17202a;background:#fff}.role{color:#17202a}.signature{display:block;text-align:center;break-inside:avoid;margin-top:18px}.signature-line{width:320px;border-top:1px solid #17202a;margin:42px auto 5px}.print-footer{position:fixed;bottom:0;left:0;right:0;text-align:center;border-top:1px solid #9aa5b1;padding-top:3px;color:#52606d;font-size:8px}.footer{display:none}}
+
+/* Reporte laboral compacto de una sola hoja */
+.labor-print{display:none}
+@media print{
+  @page{size:A4 landscape;margin:6mm}
+  body{font-size:7.1px!important}
+  body>*:not(#login):not(main){display:none!important}
+  main>.panel,main>.footer,main>.print-footer{display:none!important}
+  main{margin:0!important;padding:0!important}
+  #laborPrint{display:block!important;border:0!important;background:#fff!important;color:#18212b!important;box-shadow:none!important;padding:0!important;margin:0!important}
+  .labor-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #263746;padding:0 0 4px;margin-bottom:4px}
+  .labor-head h1{font:700 14px Arial;margin:0;color:#18212b;letter-spacing:.08em}
+  .labor-head p{font:700 8px Arial;margin:1px 0 0;color:#556575}
+  .labor-meta{text-align:right;display:flex;flex-direction:column;gap:1px;font-size:7px}
+  .labor-summary{display:flex;gap:4px;margin:3px 0 4px}
+  .labor-summary span{flex:1;border:1px solid #aeb9c4;border-radius:2px;padding:2px 4px;text-align:center;background:#f4f6f8;font-weight:700}
+  #laborPrint h2{font:700 8px Arial;color:#18212b;border:0;margin:3px 0 2px;padding:0;text-transform:uppercase;letter-spacing:.04em}
+  .labor-table{width:100%;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:6.7px;line-height:1.08}
+  .labor-table th{background:#263746!important;color:#fff!important;padding:2px 3px!important;text-transform:uppercase;font-size:6.4px;letter-spacing:.02em}
+  .labor-table td{border:1px solid #b9c2cb!important;padding:1.7px 3px!important;color:#18212b!important;vertical-align:middle!important;overflow-wrap:anywhere}
+  .labor-table th:nth-child(1){width:19%}.labor-table th:nth-child(2){width:5%}.labor-table th:nth-child(3){width:15%}.labor-table th:nth-child(4){width:51%}.labor-table th:nth-child(5){width:10%}
+  .labor-absence{margin-top:3px;break-inside:avoid}
+  .labor-absence .labor-table th:nth-child(1){width:24%}.labor-absence .labor-table th:nth-child(2){width:7%}.labor-absence .labor-table th:nth-child(3){width:39%}.labor-absence .labor-table th:nth-child(4){width:30%}
+  .labor-sign{text-align:center;width:260px;margin:10px auto 0;font-size:7px;break-inside:avoid}
+  .labor-sign span{display:block}.labor-line{border-top:1px solid #18212b;margin-bottom:2px}
+}
 </style>
 </head>
 <body class="locked">
 <div class="login" id="login"><form class="glass login-card" id="loginForm"><h1>Distribución SLB</h1><p class="sub">Sistema de planificación y control operativo</p><input id="password" type="password" placeholder="Contraseña" autocomplete="current-password"><button class="btn" style="width:100%;margin-top:14px">Iniciar programa</button><div class="error" id="loginError"></div></form></div>
-<header class="header glass"><h1>Distribución de Trabajo SLB</h1><p>Planificación semanal, procedimientos, ausencias, cobertura y reporte de auditoría</p></header>
+<header class="header glass"><h1>Distribución de Trabajo SLB</h1><p>Planificación semanal, procedimientos, ausencias, cobertura y reporte laboral</p></header>
 <main>
 <section class="panel glass"><h2>1. Configuración operativa</h2><div class="controls"><div class="field"><label for="fecha">Fecha operativa</label><input id="fecha" type="date"></div><button class="btn" id="btnActualizar">Calcular distribución</button></div><div class="option-grid"><div class="option" id="boxTransfer"><input id="optTransfer" type="checkbox"><div><b>Transferir CHN y Cuscatlán a Procesos Especiales</b><small>Disponible lunes y martes. El módulo central queda liberado para apoyo.</small></div></div><div class="option" id="boxMonday"><input id="optMonday" type="checkbox"><div><b>Refuerzo de Óbulos el lunes</b><small>Convierte un módulo de Remesas BAM en un módulo adicional de Óbulos.</small></div></div><div class="option" id="boxTuesday"><input id="optTuesday" type="checkbox"><div><b>Usar módulo liberado para Remesas G&amp;T</b><small>Disponible el martes cuando CHN/Cuscatlán fue transferido.</small></div></div></div><div class="note" id="statusMessage"></div><div class="summary-grid"><div class="summary">Remesas G&amp;T<b id="countGT">0</b></div><div class="summary">Remesas BAM<b id="countBAM">0</b></div><div class="summary">Depósitos BAM<b id="countDEP">0</b></div><div class="summary">Óbulos<b id="countOB">0</b></div><div class="summary">CHN/Cuscatlán<b id="countMIX">0</b></div><div class="summary">Ausencias<b id="countABS">0</b></div></div></section>
 <section class="panel glass"><h2>2. Reglas verificadas de la distribución</h2><div class="rule-grid"><article class="rule"><b>Cuota diaria obligatoria</b><p>Los 12 módulos centrales se distribuyen en 4 de Remesas G&amp;T, 3 de Remesas BAM, 2 de Depósitos BAM, 2 de Recuento de Óbulos y 1 de CHN/Cuscatlán.</p></article><article class="rule"><b>Módulos no compartidos</b><p>Los módulos 7, 8, 9, 10 y 16 reciben los cinco procesos diferentes entre lunes y viernes, sin repetir ninguno durante la misma semana.</p></article><article class="rule"><b>Módulos compartidos</b><p>Los módulos 1, 2, 3, 4, 11, 12 y 13 completan las cantidades diarias restantes. Su secuencia evita repetir el mismo proceso en días laborales consecutivos.</p></article><article class="rule"><b>Continuidad viernes a lunes</b><p>La rotación utiliza un índice continuo de días laborales. El proceso asignado el lunes es diferente al proceso del viernes anterior.</p></article></div><div class="note warning" id="validationMessage"></div></section>
@@ -33,11 +59,28 @@ main{max-width:1520px;margin:20px auto;padding:0 15px}.panel{padding:21px;margin
 <section class="panel glass"><h2>4. Verificación semanal de rotación</h2><p class="sub">Esta tabla permite comprobar visualmente que los módulos no compartidos cumplen cinco procesos diferentes. La columna de validación señala cualquier incumplimiento.</p><div class="table-wrap"><table class="week-table"><thead><tr><th>Módulo</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Validación</th></tr></thead><tbody id="weekBody"></tbody></table></div></section>
 <section class="panel glass"><h2>5. Procesos Especiales</h2><div class="note">Los módulos 14, 15, 17 y 19 trabajan Ficohsa, Interbanco y Promerica. Si se activa la transferencia, también reciben CHN y Cuscatlán.</div><div class="table-wrap"><table><thead><tr><th>Módulo</th><th>Persona asignada</th><th>Bancos titulares</th><th>Actividad operativa</th><th>Carga transferida</th></tr></thead><tbody id="specialBody"></tbody></table></div></section>
 <section class="panel glass audit-break"><h2>6. Registro de ausencias, justificaciones y cobertura</h2><div class="note"><b>Regla automática:</b> si la persona ausente pertenece a un módulo compartido, cubre su compañero disponible. Si pertenece a un módulo individual, cubre una persona libre procedente de un módulo compartido. Una persona ausente nunca puede ser asignada como cobertura.</div><div id="absenceList" class="absence-grid"></div></section>
-<section class="panel glass"><h2>7. Resumen de incidencias para auditoría</h2><div class="table-wrap"><table><thead><tr><th>Persona ausente</th><th>Módulo</th><th>Justificación</th><th>Persona que cubre</th><th>Proceso cubierto</th><th>Estado</th></tr></thead><tbody id="incidentBody"></tbody></table></div></section>
+<section class="panel glass"><h2>7. Ausencias y justificaciones</h2><div class="table-wrap"><table><thead><tr><th>Persona ausente</th><th>Módulo</th><th>Justificación</th><th>Persona que cubre</th><th>Proceso cubierto</th><th>Estado</th></tr></thead><tbody id="incidentBody"></tbody></table></div></section>
 <section class="panel glass"><h2>8. Coordinación y responsabilidades</h2><div class="coord-grid"><article class="coord"><div class="role">Coordinación operativa y digitación</div><h3>William</h3><ul><li>Supervisar módulos 1, 2, 3, 4, 7 y 8.</li><li>Controlar paquetes, cuadres, incidencias y continuidad operativa.</li><li>Verificar cumplimiento de procesos y apoyar redistribuciones.</li></ul></article><article class="coord"><div class="role">Coordinación operativa y digitación</div><h3>Juan Carlos</h3><ul><li>Supervisar módulos 9, 10, 11, 12 y 13.</li><li>Validar registros, revisar descuadres y controlar calidad.</li><li>Dar seguimiento a incidencias y necesidades de cobertura.</li></ul></article><article class="coord"><div class="role">Coordinación general y procesos especiales</div><h3>Marco Vinicio Cifuentes</h3><ul><li>Coordinar módulos 14, 15, 16, 17 y 18.</li><li>Verificar cuotas, rotación semanal, transferencias y refuerzos.</li><li>Autorizar y documentar coberturas e incidencias operativas.</li><li>Supervisar el reporte final de auditoría.</li></ul></article></div><div class="signature"><div class="signature-line"></div><b>Marco Vinicio Cifuentes</b><br>Coordinador senior sala bancos</div></section>
-<div class="print-only print-footer">Distribución de Trabajo SLB | Documento de control y auditoría | <span id="printMeta"></span> | m.v.c.g</div><div class="footer"><b>Sala Bancos Quetzaltenango</b><br>Marco Vinicio Cifuentes · m.v.c.g</div>
+<section id="laborPrint" class="labor-print print-only">
+  <div class="labor-head">
+    <div><h1>REPORTE LABORAL</h1><p>Distribución de Trabajo SLB</p></div>
+    <div class="labor-meta"><b id="lpDate"></b><span id="lpGenerated"></span></div>
+  </div>
+  <div class="labor-summary" id="lpSummary"></div>
+  <h2>Asignación de personal y actividad a realizar</h2>
+  <table class="labor-table">
+    <thead><tr><th>Persona</th><th>Mód.</th><th>Proceso</th><th>Actividad asignada</th><th>Estado</th></tr></thead>
+    <tbody id="lpPeople"></tbody>
+  </table>
+  <div id="lpAbsenceBlock" class="labor-absence">
+    <h2>Personal ausente y justificación</h2>
+    <table class="labor-table"><thead><tr><th>Persona ausente</th><th>Mód.</th><th>Justificación</th><th>Cobertura asignada</th></tr></thead><tbody id="lpAbsences"></tbody></table>
+  </div>
+  <div class="labor-sign"><div class="labor-line"></div><b>Marco Vinicio Cifuentes</b><span>Coordinador senior sala bancos</span></div>
+</section>
+<div class="print-only print-footer">Distribución de Trabajo SLB | Reporte laboral | <span id="printMeta"></span> | m.v.c.g</div><div class="footer"><b>Sala Bancos Quetzaltenango</b><br>Marco Vinicio Cifuentes · m.v.c.g</div>
 </main>
-<div class="dock"><button class="btn" id="btnGenerate">Actualizar matrices</button><button class="btn gray" id="btnClear">Limpiar ausencias</button><button class="btn red" id="btnPDF">Generar PDF de auditoría</button></div>
+<div class="dock"><button class="btn" id="btnGenerate">Actualizar matrices</button><button class="btn gray" id="btnClear">Limpiar ausencias</button><button class="btn red" id="btnPDF">Generar reporte laboral PDF</button></div>
 <script>
 (function(){
 'use strict';
@@ -71,6 +114,7 @@ const DAILY_TARGET={gt:4,bam:3,dep:2,ob:2,mix:1};
 const DAYS=['Lunes','Martes','Miércoles','Jueves','Viernes'];
 const $=id=>document.getElementById(id);
 let absences={};
+let lastRenderState={map:null,coverage:null,incidents:[],date:null};
 function escapeHTML(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function parseDate(value){const p=value.split('-').map(Number);return new Date(p[0],p[1]-1,p[2],12,0,0)}
 function startOfWorkWeek(date){const d=new Date(date);const day=d.getDay();const delta=day===0?-6:1-day;d.setDate(d.getDate()+delta);d.setHours(12,0,0,0);return d}
@@ -123,11 +167,33 @@ function buildCoverage(date,map){
 function renderWeek(date){const check=validateBaseWeek(date);$('validationMessage').className='note '+(check.errors.length?'error-note':'');$('validationMessage').innerHTML=check.errors.length?'<b>Se detectaron inconsistencias:</b><br>'+check.errors.map(escapeHTML).join('<br>'):'<b>Validación correcta:</b> cuotas diarias exactas, cinco procesos distintos en todos los módulos no compartidos, sin repetición consecutiva y sin repetición de viernes a lunes.';
  $('weekBody').innerHTML=MODULES.map(m=>{const processNames=check.weekMaps.map(map=>map.get(m.n));const unique=new Set(processNames.map(p=>p.id)).size;const valid=m.shared?processNames.every((p,i)=>i===0||p.id!==processNames[i-1].id):unique===5;return '<tr class="'+(!m.shared?'solo-row':'')+'"><td><b>Módulo '+m.n+'</b><div class="small">'+(m.shared?'Compartido':'No compartido')+'</div></td>'+processNames.map(p=>'<td class="cell-process"><span class="badge '+p.cls+'">'+escapeHTML(p.name)+'</span></td>').join('')+'<td><span class="'+(valid?'ok':'bad')+'">'+(valid?'Cumple':'Revisar')+'</span></td></tr>'}).join('')}
 function renderSpecial(date){const transfer=$('optTransfer').checked&&(date.getDay()===1||date.getDay()===2);const activities=['Recepción, depósito y preparación de Interbanco.','Recepción, depósito y preparación de Promerica.','Recepción, depósito y preparación de Ficohsa.','Clasificación, unificación y soporte operativo.'];$('specialBody').innerHTML=SPECIAL.map((m,i)=>'<tr><td><b>'+m.n+'</b></td><td>'+escapeHTML(m.p)+'</td><td><span class="badge special">Ficohsa</span> <span class="badge special">Interbanco</span> <span class="badge special">Promerica</span></td><td>'+activities[(businessIndex(date)+i)%4]+'</td><td>'+(transfer?'<span class="badge mix">CHN y Cuscatlán transferidos</span>':'Sin transferencia adicional')+'</td></tr>').join('')}
+function renderLaborPrint(date,map,coverage,incidents,counts){
+ const peopleRows=[];
+ MODULES.forEach(m=>{
+   const process=map.get(m.n),cov=coverage.get(m.n);
+   const allNames=[m.p,m.a].filter(Boolean);
+   allNames.forEach(name=>{
+     const absent=isAbsent(name);
+     let activity='';let status='';
+     if(absent){activity='Ausente. La actividad del módulo será atendida por: '+cov.text;status='Ausente'}
+     else if(cov.effective.includes(name)){activity=process.procedure;status='Asignado'}
+     else{activity='Apoyo operativo y cobertura según necesidad de la sala bancos.';status='Apoyo disponible'}
+     peopleRows.push({name,module:m.n,process:absent?'Ausencia registrada':process.name,activity,status});
+   });
+ });
+ SPECIAL.forEach((m,i)=>peopleRows.push({name:m.p,module:m.n,process:'Procesos Especiales',activity:'Atender Ficohsa, Interbanco y Promerica; realizar recepción, preparación, control documental, clasificación y unificación según la carga operativa.',status:'Asignado'}));
+ $('lpPeople').innerHTML=peopleRows.map(r=>'<tr><td><b>'+escapeHTML(r.name)+'</b></td><td class="center">'+r.module+'</td><td>'+escapeHTML(r.process)+'</td><td>'+escapeHTML(r.activity)+'</td><td>'+escapeHTML(r.status)+'</td></tr>').join('');
+ $('lpAbsences').innerHTML=incidents.length?incidents.map(x=>'<tr><td><b>'+escapeHTML(x.name)+'</b></td><td class="center">'+x.module+'</td><td>'+escapeHTML(x.why)+'</td><td>'+escapeHTML(x.cover)+'</td></tr>').join(''):'<tr><td colspan="4" class="center">No se registran ausencias para esta fecha.</td></tr>';
+ $('lpDate').textContent='Fecha laboral: '+$('fecha').value;
+ $('lpGenerated').textContent='Generado: '+new Date().toLocaleString('es-GT');
+ $('lpSummary').innerHTML='<span>G&T: '+counts.gt+'</span><span>Remesas BAM: '+counts.bam+'</span><span>Depósitos BAM: '+counts.dep+'</span><span>Óbulos: '+counts.ob+'</span><span>CHN/Cuscatlán: '+($('optTransfer').checked?'Transferido':counts.mix)+'</span><span>Ausentes: '+incidents.length+'</span>';
+}
 function renderAll(){
  const date=parseDate($('fecha').value);optionAvailability(date);if(date.getDay()===0||date.getDay()===6){$('statusMessage').className='note error-note';$('statusMessage').innerHTML='<b>Fin de semana:</b> no hay operación asignada.';$('dailyBody').innerHTML='<tr><td colspan="7" class="center">Sin operación.</td></tr>';return}
  renderWeek(date);const base=buildBaseDay(date);const map=applyOptions(date,new Map(base));const counts=countProcesses(map);const coverage=buildCoverage(date,map);const incidents=[];
  $('dailyBody').innerHTML=MODULES.map(m=>{const p=map.get(m.n),cov=coverage.get(m.n),planned=cov.expected.join(' y ');[m.p,m.a].filter(Boolean).filter(isAbsent).forEach(name=>incidents.push({name,module:m.n,why:absences[name]?.justification||'Sin justificación registrada',cover:cov.text,process:p.name}));return '<tr><td class="center"><b>'+m.n+'</b></td><td>'+(m.shared?'Compartido':'No compartido')+'</td><td><span class="badge '+p.cls+'">'+escapeHTML(p.bank)+'</span></td><td><b>'+escapeHTML(p.name)+'</b></td><td>'+escapeHTML(p.procedure)+'</td><td>'+escapeHTML(planned)+'</td><td><b>'+escapeHTML(cov.text)+'</b></td></tr>'}).join('');
  $('incidentBody').innerHTML=incidents.length?incidents.map(x=>'<tr><td><span class="badge special">AUSENTE</span> '+escapeHTML(x.name)+'</td><td>'+x.module+'</td><td>'+escapeHTML(x.why)+'</td><td>'+escapeHTML(x.cover)+'</td><td>'+escapeHTML(x.process)+'</td><td>'+(x.cover==='COBERTURA PENDIENTE'?'<span class="bad">Pendiente</span>':'<span class="ok">Cubierto</span>')+'</td></tr>').join(''):'<tr><td colspan="6" class="center">No se registran ausencias para esta fecha.</td></tr>';
+ renderLaborPrint(date,map,coverage,incidents,counts);
  $('countGT').textContent=counts.gt;$('countBAM').textContent=counts.bam;$('countDEP').textContent=counts.dep;$('countOB').textContent=counts.ob;$('countMIX').textContent=$('optTransfer').checked?'Especial':counts.mix;$('countABS').textContent=incidents.length;
  $('statusMessage').className='note';$('statusMessage').innerHTML='<b>Distribución calculada:</b> '+incidents.length+' ausencia(s). '+(($('optTransfer').checked||$('optMonday').checked||$('optTuesday').checked)?'Existen opciones extraordinarias activas; las cuotas mostradas reflejan esos cambios.':'La matriz mantiene las cuotas base exactas.');
  allPeople().forEach((person,i)=>{const card=document.querySelector('[data-card="'+i+'"]'),box=document.querySelector('[data-coverage="'+i+'"]');card.classList.toggle('active',isAbsent(person.name));if(isAbsent(person.name)){const cov=coverage.get(person.module);box.textContent='Justificación: '+(absences[person.name]?.justification||'sin registrar')+'. Cobertura: '+(cov?cov.text:'Proceso especial sujeto a coordinación.')}else box.textContent='Sin ausencia registrada.'});
