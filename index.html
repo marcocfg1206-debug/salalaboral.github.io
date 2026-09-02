@@ -1,87 +1,429 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Distribución de Trabajo SLB</title><style>
-:root{--b:#3f7cff;--v:#8059ed;--c:#13c8e8;--g:#13a97d;--ink:#1d2c49}*{box-sizing:border-box}body{margin:0;font:14px Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 8%,#77dcff66,transparent 27%),radial-gradient(circle at 92% 10%,#a68bff55,transparent 29%),radial-gradient(circle at 88% 88%,#ff91cc3d,transparent 28%),linear-gradient(135deg,#f7f9ff,#edf9ff 50%,#fbf5ff);min-height:100vh}.locked{overflow:hidden}.glass{background:#ffffffa8;border:1px solid #fff;border-radius:22px;box-shadow:0 18px 55px #35558c20,inset 0 1px #fff,0 0 22px #3f7cff12;backdrop-filter:blur(29px) saturate(185%)}.login{position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:#f4f8ffdd;backdrop-filter:blur(25px)}.login.hide{display:none}.login form{width:min(420px,92%);padding:30px}.login input{width:100%;padding:13px;border:1px solid #aebfe2;border-radius:11px;font-size:17px}.err{color:#b22b55;min-height:20px;margin-top:8px}.head{padding:24px;background:#ffffff99;border-bottom:1px solid #fff;backdrop-filter:blur(24px);box-shadow:0 10px 35px #34548c18}.head h1{margin:0;background:linear-gradient(90deg,#315bd8,#754ee8,#d64d9d);color:transparent;background-clip:text}.wrap{max-width:1500px;margin:18px auto;padding:0 15px}.panel{position:relative;overflow:hidden;padding:18px;margin-bottom:15px}.panel:before{content:"";position:absolute;left:3%;right:3%;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--c),var(--b),var(--v),#ef5dad,transparent);filter:drop-shadow(0 0 6px #3f7cff88)}h2{margin-top:0;color:#29466e}.controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field{flex:1;min-width:220px}.field label{display:block;font-weight:800;margin-bottom:6px}.field input{width:100%;padding:11px;border:1px solid #b7c6e2;border-radius:9px;background:#fff}.btn{padding:11px 16px;border:1px solid #ffffffcc;border-radius:10px;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 9px 22px #34548c25}.blue{background:linear-gradient(135deg,var(--b),var(--v))}.green{background:linear-gradient(135deg,#0fa577,var(--c))}.amber{background:linear-gradient(135deg,#f29b18,#ffbd35)}.pink{background:linear-gradient(135deg,#e94c85,#a85bea)}.btn:disabled{filter:grayscale(.8);opacity:.45;cursor:not-allowed}.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.option{padding:15px;border:1px solid #fff;border-radius:16px;background:#ffffff82}.option.active{box-shadow:0 0 0 2px #3f7cff55,0 0 22px #3f7cff24}.status{display:inline-block;padding:5px 9px;border-radius:16px;background:#edf2ff;color:#526589;font-weight:800;font-size:12px}.note{padding:11px;border-left:5px solid var(--g);background:#e7fbf4cc;border-radius:8px;margin-top:12px}.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.card{padding:14px;border-radius:15px;color:#fff;box-shadow:0 12px 25px #34548c20}.card b{display:block;font-size:25px;margin:5px 0}.c1{background:linear-gradient(135deg,#0fa577,#27d6ad)}.c2{background:linear-gradient(135deg,#3f7cff,#19b9e7)}.c3{background:linear-gradient(135deg,#e94c85,#a85bea)}.c4{background:linear-gradient(135deg,#f29b18,#ffbd35)}.c5{background:linear-gradient(135deg,#7554e8,#aa68f5)}.c6{background:linear-gradient(135deg,#60708d,#36445a)}.tablewrap{overflow:auto;border-radius:14px;border:1px solid #fff;background:#ffffff70}table{width:100%;border-collapse:collapse;min-width:1120px}th{background:linear-gradient(100deg,#315a9a,#6857b5);color:#fff;text-align:left;padding:10px}td{padding:9px;border-bottom:1px solid #aabbd52b;vertical-align:top}.tag{display:inline-block;padding:4px 8px;border-radius:16px;color:#fff;font-weight:800}.bam{background:#3f7cff}.gt{background:#0fa577}.mix{background:#8257e8}.spec{background:#60708d}.who{padding:7px;border-radius:8px;background:linear-gradient(135deg,#8ce8cb,#7eddf0);font-weight:800}.who.alt{background:linear-gradient(135deg,#ffd166,#ff9f68)}.name{border:0;background:none;color:#176a9e;text-decoration:underline dotted;font:inherit;font-weight:800;cursor:pointer}.small{font-size:11px;color:#64728a;display:block;margin-top:4px}.footer{text-align:center;font-size:11px;color:#65738a;padding:15px}.footer b{display:block}.modal{display:none;position:fixed;inset:0;z-index:100;background:#24314e55;backdrop-filter:blur(10px);place-items:center}.modal.open{display:grid}.modal>div{width:min(600px,92%);padding:24px}.close{float:right;border:0;border-radius:50%;width:36px;height:36px}.attendance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.attendance-card{padding:11px;border:1px solid #fff;border-radius:14px;background:#ffffff82;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.attendance-card.absent{background:#ffe8efcc;box-shadow:0 0 0 2px #e94c8555}.attendance-card b{display:block;color:#315070}.attendance-card span{font-size:11px;color:#687891}.attendance-toggle{border:1px solid #b6c6e3;border-radius:18px;padding:6px 10px;background:#e7fbf4;color:#137256;font-weight:800;cursor:pointer}.attendance-card.absent .attendance-toggle{background:#ef5d89;color:white;border-color:#ef5d89}.absence-tag{display:inline-block;padding:4px 8px;border-radius:14px;background:#ef5d89;color:white;font-size:11px;font-weight:800}.coverage-tag{display:inline-block;padding:4px 8px;border-radius:14px;background:#f7a928;color:white;font-size:11px;font-weight:800}.coord-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.coord-card{padding:17px;border:1px solid #fff;border-radius:18px;background:linear-gradient(145deg,#ffffffb8,#edf5ff8f);box-shadow:0 12px 30px #34548c17,inset 0 1px #fff}.coord-card h3{margin:8px 0;color:#315070}.bank-list{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.bank-pill{display:inline-block;padding:5px 9px;border-radius:15px;background:linear-gradient(135deg,#e4f5ff,#ece7ff);border:1px solid #fff;color:#365579;font-size:11px;font-weight:800}.bank-pill.extra{background:linear-gradient(135deg,#fff0c8,#ffe0b2);color:#765000}.functions{padding-left:19px}.functions li{margin:6px 0}.weekly-ok{display:inline-block;padding:5px 9px;border-radius:15px;background:#daf8ed;color:#12694f;font-weight:800;font-size:11px}.weekend{padding:24px;text-align:center;background:#fff4d8;color:#795400;border-radius:14px;font-weight:800}.hide-option{display:none}@media(max-width:1000px){.coord-grid{grid-template-columns:1fr}.attendance-grid{grid-template-columns:1fr 1fr}}@media(max-width:800px){.cards{grid-template-columns:repeat(3,1fr)}.options{grid-template-columns:1fr}}@media(max-width:520px){.attendance-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.controls{display:block}.btn{width:100%;margin-top:8px}}@media print{.login,.controls,.special-options,.modal{display:none!important}body{background:#fff}.glass{box-shadow:none;background:#fff;border:1px solid #ccd6df}.panel{break-inside:avoid}.cards{grid-template-columns:repeat(6,1fr)}table{min-width:0;font-size:9px}th,td{padding:5px}}
-</style></head><body class="locked"><div class="login" id="login"><form class="glass" id="loginForm"><h1>Distribución de Trabajo SLB</h1><p>Ingrese la contraseña para iniciar.</p><input id="pass" type="password" inputmode="numeric" placeholder="Contraseña"><button class="btn blue" style="width:100%;margin-top:12px">Iniciar programa</button><div class="err" id="loginErr"></div></form></div>
-<header class="head"><h1>Distribución de Trabajo SLB</h1><div>Rotación equitativa con base en 12 posiciones diarias fijas</div></header><main class="wrap">
-<section class="panel glass"><div class="controls"><div class="field"><label>Fecha</label><input type="date" id="fecha"></div><button class="btn blue" id="generar">Generar distribución</button><button class="btn green" id="pdf">Generar PDF</button></div><div class="note" id="mensaje"></div></section>
-<section class="panel glass special-options" id="special"><h2>Opciones especiales del día</h2><div class="options"><div class="option" id="boxTransfer"><span class="status">Lunes y martes</span><h3>Transferir Cuscatlán y CHN</h3><p>Traslada las remesas de Cuscatlán y CHN a procesos especiales, liberando esa posición para sumar 1 remesa adicional a G&T.</p><button class="btn amber" id="transfer">Aplicar transferencia</button></div><div class="option" id="boxObulos"><span class="status">Solo lunes</span><h3>Refuerzo para óbulos BAM</h3><p>Cambia exactamente 1 módulo de remesas BAM por una posición adicional para recuento de óbulos.</p><button class="btn pink" id="obulos">Aplicar refuerzo de óbulos</button></div></div><div class="note" id="opmsg">Seleccione una opción si la operación del día lo requiere.</div></section>
-<section class="panel glass"><div class="cards"><div class="card c1">G&T<b id="gtCount">-</b>módulos</div><div class="card c2">BAM<b id="bamCount">-</b>módulos</div><div class="card c3">Óbulos<b id="obCount">-</b>módulos</div><div class="card c4">Piñata<b id="pinCount">-</b>módulos</div><div class="card c5">CHN/Cusc<b id="mixCount">-</b>módulos</div><div class="card c6">Día Ciclo<b id="ciclo">-</b>de 12</div></div></section>
-<section class="panel glass special-options"><h2>Control de asistencia y cobertura automática</h2><p>Seleccione <b>Ausente</b> en el nombre correspondiente para que el programa asigne la cobertura con el personal disponible.</p><div class="attendance-grid" id="attendance"></div><div class="note" id="absenceMsg">Todo el personal se encuentra marcado como presente.</div></section><section class="panel glass"><h2>Asignación Base (12 posiciones)</h2><div class="options"><div class="option"><b>1. Remesas G&amp;T</b><p>4 módulos diarios.</p></div><div class="option"><b>2. Remesas BAM</b><p>3 módulos diarios.</p></div><div class="option"><b>3. Recuento de óbulos</b><p>2 módulos diarios.</p></div><div class="option"><b>4. Depósitos BAM (Piñata)</b><p>2 módulos diarios.</p></div><div class="option"><b>5. CHN y Cuscatlán</b><p>1 módulo diario.</p></div></div><div class="note">Para mantener los 12 módulos exactos cada día, el sistema usa una matriz rotativa de 12 posiciones. Así, un módulo individual probará todos los procesos en un lapso de 12 días, mientras que un módulo compartido requerirá 24 días para que ambos integrantes roten completamente, garantizando variedad constante.</div></section><section class="panel glass"><h2>Verificación individual de la semana</h2><p>Comprueba la rotación individual para los próximos 5 días hábiles.</p><div class="tablewrap"><table><thead><tr><th>Persona</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Validación</th></tr></thead><tbody id="tablaSemana"></tbody></table></div></section><section class="panel glass"><h2>Distribución general</h2><p>Todos los receptores cambian diariamente a través de la matriz de las 12 posiciones, de lunes a viernes.</p><div class="tablewrap"><table><thead><tr><th>Módulo</th><th>Banco</th><th>Procedimiento</th><th>Persona principal</th><th>Persona alterna</th><th>Ocupa el módulo</th><th>Trabajo de la persona disponible</th></tr></thead><tbody id="tabla"></tbody></table></div></section>
-<section class="panel glass"><h2>Procesos especiales</h2><p><b>Las personas de los módulos 14, 15, 17 y 19 trabajan Interbanco, Promerica y Ficohsa simultáneamente.</b> Si se activa la transferencia, estas cuatro personas también procesarán las remesas de CHN y Cuscatlán en conjunto.</p><div class="tablewrap"><table><thead><tr><th>Módulo</th><th>Persona</th><th>Bancos asignados permanentemente</th><th>Procedimientos a realizar</th><th>Tarea rotativa</th><th>Apoyo al finalizar</th></tr></thead><tbody id="tablaComp"></tbody></table></div></section>
-<section class="panel glass"><h2>Encargados de coordinación y digitación</h2><p>Los módulos 5, 6 y 18 quedan fuera de la rotación ordinaria y supervisan la operación.</p><div class="coord-grid">
-<div class="coord-card"><h3><button class="name" data-name="William Méndez">William Méndez</button> · Módulo 5</h3><p><b>Principal:</b></p><div class="bank-list"><span class="bank-pill">G&amp;T</span></div><p><b>Secundario:</b></p><div class="bank-list"><span class="bank-pill">BAM</span><span class="bank-pill">CHN</span><span class="bank-pill">Cuscatlán</span></div><ul class="functions"><li>Supervisar remesas G&amp;T e incidencias.</li><li>Coordinar coberturas y digitación.</li></ul></div>
-<div class="coord-card"><h3><button class="name" data-name="Juan Carlos López Ventura">Juan Carlos López Ventura</button> · Módulo 6</h3><p><b>Principal:</b></p><div class="bank-list"><span class="bank-pill">BAM</span><span class="bank-pill">Cuscatlán</span><span class="bank-pill">CHN</span></div><p><b>Secundario:</b></p><div class="bank-list"><span class="bank-pill">G&amp;T</span></div><ul class="functions"><li>Supervisar remesas, depósitos y óbulos BAM.</li><li>Verificar Cuscatlán y CHN.</li></ul></div>
-<div class="coord-card"><h3><button class="name" data-name="Marco Cifuentes">Marco Cifuentes</button> · Módulo 18</h3><p><b>Principal:</b></p><div class="bank-list"><span class="bank-pill">Interbanco</span><span class="bank-pill">Promerica</span><span class="bank-pill">Ficohsa</span></div><p><b>Secundario:</b></p><div class="bank-list"><span class="bank-pill">CHN</span><span class="bank-pill">Cuscatlán</span></div><ul class="functions"><li>Supervisar procesos especiales y transferencias.</li><li>Organizar clasificado y unificación.</li></ul></div></div></section><div class="footer"><b>Sala Bancos Quetzaltenango</b>Marco Vinicio Cifuentes Gálvez</div></main>
-<div class="modal" id="modal"><div class="glass"><button class="close" id="close">×</button><h2 id="mn"></h2><p id="mr"></p><ul id="mf"></ul></div></div>
-<script>(function(){
-var mods=[{n:1,p:'Nora Liset Barrios López',a:'Andrea Viviana Alvarado Alvarado'},{n:2,p:'Iris Belinda López Velásquez',a:'Norma Roselda Lem Toc'},{n:3,p:'Dany Otoniel Son Sajquim',a:'Lorena Pérez Puy'},{n:4,p:'Karla Jeannette Sánchez Escobar',a:'Yefty Orlando Chávez Cacatzún'},{n:7,p:'Ana Lucía Barrios Gramajo',a:''},{n:8,p:'Mayra Julieta Agustín Morales',a:''},{n:9,p:'Enrique Manuel Vicente Sajché',a:''},{n:10,p:'Gerson Alberto Chaj Macario',a:''},{n:11,p:'Jeniffer María Contreras Arias',a:'Yuscely Dalila Guzmán Tomás'},{n:12,p:'Celma Azucena Say Ortiz',a:'Julio César Velásquez Pérez'},{n:13,p:'Axel Iván Mazariegos Hidalgo',a:'Victoria Emilia Villagrán Morales'},{n:16,p:'Yoselin Paola Xulu Lucas',a:''}],comp=[{n:14,p:'Débora Victoria López Ramírez'},{n:15,p:'Britney Nohemí de León Matín'},{n:17,p:'María Benita Cahuex Juárez'},{n:19,p:'Iris Martina Más Chaclán'}],transferOn=false,obulosOn=false,absent={};
-function parse(v){var x=v.split('-');return new Date(+x[0],+x[1]-1,+x[2],12)}function diaLaboral(f){var d=f.getDay();return d>=1&&d<=5?d-1:-1}function semanaIndice(f){var a=new Date(2026,0,5,12),ms=f-a;return Math.floor(ms/(7*86400000))}function wi(f){return semanaIndice(f)*5+diaLaboral(f)}function esc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}function nb(n){return '<button class="name" data-name="'+esc(n)+'">'+esc(n)+'</button>'}
-function isAbsent(n){return !!absent[n]}function renderAttendance(){var h='';mods.concat(comp).forEach(function(x){[x.p,x.a].forEach(function(n){if(!n)return;var a=isAbsent(n);h+='<div class="attendance-card '+(a?'absent':'')+'"><div><b>'+esc(n)+'</b><span>Módulo '+x.n+(n===x.a?' · persona compartida':' · persona principal')+'</span></div><button class="attendance-toggle" data-attendance="'+esc(n)+'">'+(a?'Ausente':'Presente')+'</button></div>'})});attendance.innerHTML=h;var list=Object.keys(absent).filter(function(n){return absent[n]});absenceMsg.innerHTML=list.length?'<b>Ausencias registradas:</b> '+list.join(', ')+'. La cobertura fue recalculada automáticamente.':'Todo el personal se encuentra marcado como presente.'}
-function availableShared(exclude){var pool=[];mods.forEach(function(m){if(!m.a)return;[m.p,m.a].forEach(function(n){if(!isAbsent(n)&&exclude.indexOf(n)<0)pool.push(n)})});return pool}
-function dayOptions(){var d=parse(fecha.value).getDay(),mon=d===1,tue=d===2;special.classList.toggle('hide-option',!(mon||tue));boxTransfer.classList.toggle('hide-option',!(mon||tue));boxObulos.classList.toggle('hide-option',!mon);if(!mon)obulosOn=false;if(!(mon||tue))transferOn=false;transfer.textContent=transferOn?'Quitar transferencia':'Aplicar transferencia';obulos.textContent=obulosOn?'Quitar refuerzo de óbulos':'Aplicar refuerzo de óbulos';boxTransfer.classList.toggle('active',transferOn);boxObulos.classList.toggle('active',obulosOn)}
-function procedimientos(){
-    return [
-        {slot: 0, b:'G&T', p:'Remesas G&T'},
-        {slot: 1, b:'BAM', p:'Remesas BAM'},
-        {slot: 2, b:'BAM', p:'Recuento de óbulos'},
-        {slot: 3, b:'G&T', p:'Remesas G&T'},
-        {slot: 4, b:'BAM', p:'Depósitos BAM (Piñata)'},
-        {slot: 5, b:'BAM', p:'Remesas BAM'},
-        {slot: 6, b:'G&T', p:'Remesas G&T'},
-        {slot: 7, b:'BAM', p:'Recuento de óbulos'},
-        {slot: 8, b:'Cuscatlán + CHN', p:'Remesas CHN y Cuscatlán'},
-        {slot: 9, b:'G&T', p:'Remesas G&T'},
-        {slot: 10, b:'BAM', p:'Remesas BAM'},
-        {slot: 11, b:'BAM', p:'Depósitos BAM (Piñata)'}
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Distribución de Trabajo SLB</title>
+<style>
+:root {
+  --b: #1976d2; 
+  --v: #7b1fa2; 
+  --r: #d32f2f; 
+  --g: #00796b;
+  --bg-dark: #0f111a;
+  --glass-bg: rgba(25, 28, 45, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-main);
+  background: radial-gradient(circle at 10% 10%, #171c33, transparent 40%),
+              radial-gradient(circle at 90% 90%, #251236, transparent 40%),
+              radial-gradient(circle at 50% 50%, #200f15, transparent 50%),
+              var(--bg-dark);
+  min-height: 100vh;
+  padding-bottom: 90px;
+}
+.locked { overflow: hidden; }
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+.login { position: fixed; inset: 0; z-index: 999; display: grid; place-items: center; background: rgba(10, 12, 20, 0.85); backdrop-filter: blur(25px); }
+.login.hide { display: none; }
+.login form { width: min(420px, 92%); padding: 30px; text-align: center; }
+.login input { width: 100%; padding: 13px; border: 1px solid var(--glass-border); border-radius: 11px; font-size: 17px; background: rgba(0,0,0,0.3); color: #fff; }
+.err { color: var(--r); min-height: 20px; margin-top: 8px; }
+.head { padding: 24px; text-align: center; border-bottom: 1px solid var(--glass-border); }
+.head h1 { margin: 0; background: linear-gradient(90deg, #4da8da, #b266ff, #ff6b6b); color: transparent; background-clip: text; -webkit-background-clip: text; }
+.wrap { max-width: 1500px; margin: 18px auto; padding: 0 15px; }
+.panel { position: relative; overflow: hidden; padding: 20px; margin-bottom: 20px; }
+h2 { margin-top: 0; color: #fff; font-weight: 600; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+.controls { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; margin-bottom: 15px; }
+.field { flex: 1; min-width: 220px; }
+.field label { display: block; font-weight: 600; margin-bottom: 6px; color: var(--text-muted); }
+.field input { width: 100%; padding: 11px; border: 1px solid var(--glass-border); border-radius: 9px; background: rgba(0,0,0,0.2); color: #fff; color-scheme: dark; }
+.btn { padding: 11px 18px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+.blue { background: linear-gradient(135deg, var(--b), #3f51b5); }
+.green { background: linear-gradient(135deg, var(--g), #009688); }
+.pink { background: linear-gradient(135deg, var(--v), var(--r)); }
+.btn:disabled { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; }
+.note { padding: 12px; border-left: 4px solid var(--b); background: rgba(25, 118, 210, 0.1); border-radius: 8px; margin-top: 15px; color: #cbd5e1; }
+.note.alert { border-left-color: var(--r); background: rgba(211, 47, 47, 0.1); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.card { padding: 16px; border-radius: 16px; color: #fff; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.card b { display: block; font-size: 28px; margin: 8px 0; font-weight: 700; }
+.c1 { background: linear-gradient(135deg, var(--g), #26a69a); }
+.c2 { background: linear-gradient(135deg, var(--b), #42a5f5); }
+.c3 { background: linear-gradient(135deg, var(--v), #ab47bc); }
+.c4 { background: linear-gradient(135deg, #f57c00, #ffa726); }
+.c5 { background: linear-gradient(135deg, var(--r), #ef5350); }
+.c6 { background: linear-gradient(135deg, #455a64, #78909c); }
+.tablewrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); }
+table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+th { background: rgba(255,255,255,0.05); color: #fff; text-align: left; padding: 12px; font-weight: 600; }
+td { padding: 12px; border-bottom: 1px solid var(--glass-border); vertical-align: middle; color: #cbd5e1; }
+.tag { display: inline-block; padding: 5px 10px; border-radius: 12px; color: #fff; font-weight: 600; font-size: 12px; }
+.bam { background: var(--b); }
+.gt { background: var(--g); }
+.mix { background: #f57c00; }
+.spec { background: var(--r); }
+.name { border: 0; background: none; color: #64b5f6; text-decoration: underline dotted; font: inherit; font-weight: 600; cursor: pointer; padding: 0; }
+.small { font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; }
+.coord-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+.coord-card { padding: 20px; border: 1px solid var(--glass-border); border-radius: 18px; background: rgba(255,255,255,0.03); }
+.coord-card h3 { margin: 0 0 10px 0; color: #fff; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;}
+.bank-pill { display: inline-block; padding: 4px 10px; border-radius: 12px; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; font-size: 11px; margin: 2px; }
+.functions { padding-left: 18px; color: #cbd5e1; font-size: 13px; margin-top: 10px; }
+.functions li { margin-bottom: 6px; }
+.dock { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; padding: 12px 24px; border-radius: 24px; background: rgba(15, 18, 30, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.15); z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+.footer { text-align: center; font-size: 12px; color: var(--text-muted); padding: 15px; }
+.modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); place-items: center; }
+.modal.open { display: grid; }
+.modal > div { width: min(600px, 92%); padding: 30px; }
+.close { float: right; border: 0; background: rgba(255,255,255,0.1); color: #fff; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; }
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  .glass { background: #fff; box-shadow: none; border: 1px solid #ccc; filter: none; }
+  .login, .dock, .controls { display: none !important; }
+  th { background: #eee; color: #000; }
+  td, h2, .note, .card b, .functions, .coord-card h3 { color: #000; }
+  .name { color: #000; text-decoration: none; }
+  .bank-pill { color: #000; border-color: #000; }
+}
+</style>
+</head>
+<body class="locked">
+
+<div class="login" id="login">
+  <form class="glass" id="loginForm">
+    <h1>Distribución SLB</h1>
+    <p style="color:#cbd5e1">Ingrese la contraseña para iniciar.</p>
+    <input id="pass" type="password" placeholder="Contraseña">
+    <button class="btn blue" style="width:100%;margin-top:15px">Iniciar programa</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</div>
+
+<header class="head glass" style="border-radius:0 0 20px 20px; border-top:none; margin-bottom:20px;">
+  <h1>Distribución de Trabajo SLB</h1>
+  <p style="color:var(--text-muted); margin:5px 0 0;">Gestión de Rotación Operativa y Carga Laboral</p>
+</header>
+
+<main class="wrap">
+  <section class="panel glass">
+    <h2>Configuración y Estado de Carga</h2>
+    <div class="controls">
+      <div class="field"><label>Fecha Operativa</label><input type="date" id="fecha"></div>
+    </div>
+    <div class="note" id="diaMsg"></div>
+    <div class="cards">
+      <div class="card c1">G&T<b id="gtCount">-</b></div>
+      <div class="card c2">BAM Rem.<b id="bamCount">-</b></div>
+      <div class="card c4">BAM Dep.<b id="pinCount">-</b></div>
+      <div class="card c3">Óbulos<b id="obCount">-</b></div>
+      <div class="card c5">CHN/Cusc<b id="mixCount">-</b></div>
+      <div class="card c6">Día Ciclo<b id="ciclo">-</b></div>
+    </div>
+  </section>
+
+  <section class="panel glass">
+    <h2>Módulos Centrales (1 al 13 y 16)</h2>
+    <div class="note"><b>Dinámica de Compartidos:</b> Las personas que comparten módulo tendrán un proceso diferente al día siguiente de ocupar el espacio físico, asegurando equidad. Si corresponde <i>Óbulos</i>, ambas personas ocupan el módulo simultáneamente.</div>
+    <div class="tablewrap" style="margin-top:15px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Módulo</th>
+            <th>Banco</th>
+            <th>Proceso Asignado</th>
+            <th>Persona Principal</th>
+            <th>Persona Alterna</th>
+            <th>Ocupa el Módulo</th>
+            <th>Actividad de la Persona Excedente</th>
+          </tr>
+        </thead>
+        <tbody id="tabla"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel glass">
+    <h2>Procesos Especiales (Módulos 14, 15, 17, 19)</h2>
+    <div class="note">Personal asignado permanentemente a <b>Ficohsa, Interbanco y Promerica</b>. La carga laboral absorbida mediante transferencias de procesos se reflejará aquí automáticamente los días aplicables.</div>
+    <div class="tablewrap" style="margin-top:15px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Módulo</th>
+            <th>Persona Asignada</th>
+            <th>Bancos Titulares</th>
+            <th>Tipo de Proceso</th>
+            <th>Actividad Detallada</th>
+          </tr>
+        </thead>
+        <tbody id="tablaComp"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel glass">
+    <h2>Estructura de Coordinación y Digitación</h2>
+    <div class="coord-grid">
+      <div class="coord-card">
+        <h3><button class="name" data-name="William">William</button></h3>
+        <span class="bank-pill">Supervisión: Mód. 1, 2, 3, 4, 7, 8</span>
+        <ul class="functions">
+          <li>Creación y consolidación de paquetes de remesas.</li>
+          <li>Revisión sistemática y cuadre de operaciones.</li>
+          <li>Apoyo operativo y soporte transversal al resto de los módulos.</li>
+        </ul>
+      </div>
+      <div class="coord-card">
+        <h3><button class="name" data-name="Juan Carlos">Juan Carlos</button></h3>
+        <span class="bank-pill">Supervisión: Mód. 9, 10, 11, 12, 13</span>
+        <ul class="functions">
+          <li>Ingreso y validación de datos en el sistema central.</li>
+          <li>Identificación y resolución de descuadres.</li>
+          <li>Apoyo operativo y soporte transversal al resto de los módulos.</li>
+        </ul>
+      </div>
+      <div class="coord-card">
+        <h3><button class="name" data-name="Marco Cifuentes">Marco Cifuentes</button></h3>
+        <span class="bank-pill">Supervisión: Mód. 14, 15, 16, 17, 18</span>
+        <ul class="functions">
+          <li>Ingreso de datos paramétricos al sistema.</li>
+          <li>Creación y consolidación de paquetes de remesas.</li>
+          <li>Análisis, revisión de descuadres y soporte a todas las áreas operativas.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <b>Sala Bancos Quetzaltenango</b><br>
+    Marco Vinicio Cifuentes Gálvez
+  </div>
+</main>
+
+<div class="dock">
+  <button class="btn blue" id="generar">Actualizar Matrices</button>
+  <button class="btn pink" id="pdf">Exportar a PDF</button>
+</div>
+
+<div class="modal" id="modal">
+  <div class="glass">
+    <button class="close" id="close">×</button>
+    <h2 id="mn" style="border:none; padding:0; color:#fff;"></h2>
+    <p id="mr" style="color:var(--text-muted); font-weight:bold; margin-bottom: 15px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;"></p>
+    <ul id="mf" style="color:#e2e8f0; font-size:14px; line-height:1.7"></ul>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Módulos centrales (Rotativos)
+  var mods = [
+    {n:1, p:'Nora Liset Barrios López', a:'Andrea Viviana Alvarado Alvarado'},
+    {n:2, p:'Iris Belinda López Velásquez', a:'Norma Roselda Lem Toc'},
+    {n:3, p:'Dany Otoniel Son Sajquim', a:'Lorena Pérez Puy'},
+    {n:4, p:'Karla Jeannette Sánchez Escobar', a:'Yefty Orlando Chávez Cacatzún'},
+    {n:7, p:'Ana Lucía Barrios Gramajo', a:''},
+    {n:8, p:'Mayra Julieta Agustín Morales', a:''},
+    {n:9, p:'Enrique Manuel Vicente Sajché', a:''},
+    {n:10, p:'Gerson Alberto Chaj Macario', a:''},
+    {n:11, p:'Jeniffer María Contreras Arias', a:'Yuscely Dalila Guzmán Tomás'},
+    {n:12, p:'Celma Azucena Say Ortiz', a:'Julio César Velásquez Pérez'},
+    {n:13, p:'Axel Iván Mazariegos Hidalgo', a:'Victoria Emilia Villagrán Morales'},
+    {n:16, p:'Yoselin Paola Xulu Lucas', a:''}
+  ];
+
+  // Módulos de Procesos Especiales (Fijos)
+  var comp = [
+    {n:14, p:'Débora Victoria López Ramírez'},
+    {n:15, p:'Britney Nohemí de León Matín'},
+    {n:17, p:'María Benita Cahuex Juárez'},
+    {n:19, p:'Iris Martina Más Chaclán'}
+  ];
+
+  function parse(v){ var x = v.split('-'); return new Date(+x[0], +x[1]-1, +x[2], 12); }
+  function diaLaboral(f){ var d = f.getDay(); return (d >= 1 && d <= 5) ? d - 1 : -1; }
+  function semanaIndice(f){ var a = new Date(2026, 0, 5, 12); return Math.floor((f - a) / (7 * 86400000)); }
+  function wi(f){ return semanaIndice(f) * 5 + diaLaboral(f); }
+  function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function nb(n){ return '<button class="name" data-name="'+esc(n)+'">'+esc(n)+'</button>'; }
+
+  function getBaseProcedures(day) {
+    // Matriz original: 4 G&T, 3 BAM Rem, 2 BAM Dep, 2 Óbulos, 1 CHN/Cusc.
+    var p = [
+      {b:'G&T', p:'Remesas G&T'}, // Slot 0
+      {b:'BAM', p:'Remesas BAM'}, // Slot 1
+      {b:'BAM', p:'Recuento de Óbulos'}, // Slot 2
+      {b:'G&T', p:'Remesas G&T'}, // Slot 3
+      {b:'BAM', p:'Depósitos BAM'}, // Slot 4
+      {b:'BAM', p:'Remesas BAM'}, // Slot 5
+      {b:'G&T', p:'Remesas G&T'}, // Slot 6
+      {b:'BAM', p:'Recuento de Óbulos'}, // Slot 7
+      {b:'Cuscatlán + CHN', p:'Remesas CHN y Cuscatlán'}, // Slot 8 (Módulo Transferible)
+      {b:'G&T', p:'Remesas G&T'}, // Slot 9
+      {b:'BAM', p:'Remesas BAM'}, // Slot 10 (Módulo BAM Transferible a Óbulos)
+      {b:'BAM', p:'Depósitos BAM'} // Slot 11
     ];
-}
-function procedimientoPersona(nombre, j){
-    var p = procedimientos();
-    var modIndex = -1;
-    for(var i=0; i<mods.length; i++){ if(mods[i].p === nombre || mods[i].a === nombre){ modIndex = i; break; } }
-    if(modIndex === -1) return p[0];
-    var shift = j + Math.floor(j / 12); 
-    var finalIndex = (shift + modIndex) % 12;
-    if(finalIndex < 0) finalIndex += 12;
-    return p[finalIndex];
-}
-function procedimientoConOpciones(q){
-    if(transferOn && q.slot === 8) return {b:'G&T', p:'Remesas G&T (por transferencia)'};
-    if(obulosOn && q.slot === 1) return {b:'BAM', p:'Recuento de óbulos (refuerzo lunes)'};
-    return q;
-}
-function generarSemana(semana){
-    var personas=[];
-    mods.forEach(function(m){personas.push(m.p);if(m.a)personas.push(m.a)});
-    var h='';
-    personas.forEach(function(n){
-        var celdas='';
-        for(var d=0; d<5; d++){
-            var j_day = semana * 5 + d;
-            var q = procedimientoPersona(n, j_day);
-            celdas += '<td>' + q.p + '</td>';
+
+    if (day === 1) { // Lunes
+      p[8] = {b:'G&T', p:'Remesas G&T (Transf. Lunes)'}; // CHN/Cusc -> G&T
+      p[10] = {b:'BAM', p:'Recuento de Óbulos (Refuerzo Lunes)'}; // BAM -> Óbulos
+    } else if (day === 2) { // Martes
+      p[8] = {b:'BAM', p:'Remesas BAM (Transf. Martes)'}; // CHN/Cusc -> BAM
+    }
+    
+    return p;
+  }
+
+  function gen(){
+    var f = parse(fecha.value), day = f.getDay();
+    
+    if(day === 0 || day === 6){
+      diaMsg.className = 'note alert';
+      diaMsg.innerHTML = '<b>Fin de Semana:</b> Sábados y domingos no hay procesos de distribución operativos.';
+      tabla.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">Sin operación asignada.</td></tr>';
+      tablaComp.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">Sin operación asignada.</td></tr>';
+      return;
+    }
+
+    // Mensajes dinámicos según el día
+    if (day === 1) {
+      diaMsg.className = 'note';
+      diaMsg.innerHTML = '<b>Reglas de Lunes Activas:</b> Transferencia de CHN y Cuscatlán ejecutada (Módulo usado para G&T). Se habilitó un módulo adicional para recuento de ÓBULOS reemplazando uno de Remesas BAM.';
+    } else if (day === 2) {
+      diaMsg.className = 'note';
+      diaMsg.innerHTML = '<b>Reglas de Martes Activas:</b> Transferencia de CHN y Cuscatlán ejecutada (Módulo usado para Remesas BAM).';
+    } else {
+      diaMsg.className = 'note';
+      diaMsg.innerHTML = '<b>Operación Estándar (Miércoles a Viernes):</b> Distribución normal sin transferencias de carga hacia procesos especiales.';
+    }
+
+    var j = wi(f), h = '', hc = '', counts = {gt:0, bam:0, ob:0, pin:0, mix:0};
+    var baseProcs = getBaseProcedures(day);
+    var isTransfer = (day === 1 || day === 2);
+
+    // Módulos Centrales
+    mods.forEach(function(m, index){
+      var shared = !!m.a;
+      var shift = j + Math.floor(j / 12);
+      var q = baseProcs[(shift + index) % 12];
+      var occ = m.p, free = m.p + ' realiza el proceso asignado: ' + q.p;
+      
+      if(shared){
+        var isObulos = q.p.indexOf('Óbulos') >= 0;
+        var altDay = (j + m.n) % 2 === 0;
+        
+        if(isObulos){
+          occ = m.p + ' y ' + m.a;
+          free = 'Ambos ejecutan Recuento de Óbulos en el módulo.';
+        } else {
+          occ = altDay ? m.a : m.p;
+          var helper = altDay ? m.p : m.a;
+          
+          // La persona excedente realiza un proceso del slot contiguo para variar
+          var helperShift = (shift + index + 1) % 12; 
+          var helperQ = baseProcs[helperShift];
+          free = helper + ' asume un proceso diferente: ' + helperQ.p;
         }
-        var m = null; for(var i=0; i<mods.length; i++){ if(mods[i].p === n || mods[i].a === n){ m = mods[i]; break; } }
-        var isShared = m && !!m.a;
-        var okText = isShared ? 'OK (24d)' : 'OK (12d)';
-        h+='<tr><td>'+nb(n)+'</td>'+celdas+'<td><span class="weekly-ok">'+okText+'</span></td></tr>';
+      }
+
+      if(q.p.includes('G&T')) counts.gt++;
+      else if(q.p.includes('Remesas BAM')) counts.bam++;
+      else if(q.p.includes('Óbulos')) counts.ob++;
+      else if(q.p.includes('Depósitos BAM')) counts.pin++;
+      else if(q.p.includes('CHN')) counts.mix++;
+
+      var cls = q.b === 'BAM' ? 'bam' : q.b.includes('G&T') ? 'gt' : 'mix';
+      h += '<tr><td><b>'+m.n+'</b></td><td><span class="tag '+cls+'">'+q.b+'</span></td><td>'+q.p+'</td><td>'+nb(m.p)+'</td><td>'+(m.a ? nb(m.a) : '<span class="small">N/A</span>')+'</td><td><b style="color:#fff">'+occ+'</b></td><td>'+free+'</td></tr>';
     });
-    tablaSemana.innerHTML=h;
-}
-function compSlots(){
-    return [
-        {t:'Depósitos y preparación de remesas', ap:'Remesas Promerica o clasificado'},
-        {t:'Clientes y recuento de remesas', ap:'Remesas Interbanco o unificación'},
-        {t:'Pepsi y depósitos', ap:'Otra carga Ficohsa o mayor carga'},
-        {t:'Remesas; si no llegan, depósitos o Pepsi', ap:'Clasificado, unificación o cobertura'}
+
+    // Procesos Especiales (Ficohsa, Interbanco, Promerica)
+    var compTasks = [
+      'Recepción, depósito y preparación Interbanco.',
+      'Recepción, depósito y preparación Promerica.',
+      'Recepción, depósito y preparación Ficohsa.',
+      'Gestión integral de remesas clasificado/unificación.'
     ];
-}
-function gen(){dayOptions();renderAttendance();var f=parse(fecha.value),day=diaLaboral(f),week=semanaIndice(f);generarSemana(week);if(day<0){tabla.innerHTML='<tr><td colspan="7"><div class="weekend">Sábado y domingo no son días laborales. Seleccione una fecha de lunes a viernes.</div></td></tr>';tablaComp.innerHTML='<tr><td colspan="6"><div class="weekend">No se genera distribución para fin de semana.</div></td></tr>';ciclo.textContent='-';mensaje.innerHTML='<b>Día no laboral:</b> el fin de semana no modifica ni avanza la rotación semanal.';return}
-var j=wi(f),cycle=(j%12)+1,rows=[],occupied=[],needs=[];
-mods.forEach(function(m){var shared=!!m.a,pOk=!isAbsent(m.p),aOk=shared&&!isAbsent(m.a),scheduledAlt=shared&&((j+m.n)%2===0),occ='',free='',q,helper='',helperQ=null;if(shared){if(pOk&&aOk){occ=scheduledAlt?m.a:m.p;helper=scheduledAlt?m.p:m.a;q=procedimientoConOpciones(procedimientoPersona(occ,j));helperQ=procedimientoConOpciones(procedimientoPersona(helper,j));free=helper+' → '+helperQ.p}else if(pOk){occ=m.p;q=procedimientoConOpciones(procedimientoPersona(m.p,j));free='La persona presente realiza su procedimiento: '+q.p}else if(aOk){occ=m.a;q=procedimientoConOpciones(procedimientoPersona(m.a,j));free='La persona presente realiza su procedimiento: '+q.p}else{q=procedimientoConOpciones(procedimientoPersona(m.p,j));needs.push({m:m});occ='PENDIENTE DE COBERTURA';free='Coordinación debe asignar cobertura'}}else{q=procedimientoConOpciones(procedimientoPersona(m.p,j));if(pOk){occ=m.p;free=m.p+' realiza: '+q.p}else{needs.push({m:m});occ='PENDIENTE DE COBERTURA';free='Se buscará persona disponible de módulo compartido'}}if(occ.indexOf('PENDIENTE')<0)occupied.push(occ);rows.push({m:m,q:q,occ:occ,free:free,pOk:pOk,aOk:aOk})});
-var pool=availableShared(occupied);needs.forEach(function(n){var r=rows.filter(function(x){return x.m.n===n.m.n})[0];if(pool.length){var cover=pool.shift(),cq=procedimientoConOpciones(procedimientoPersona(cover,j));r.occ=cover;r.q=cq;r.free=cover+' cubre el módulo y realiza su procedimiento asignado: '+cq.p}else r.free='Coordinación debe asignar cobertura'});
-var h='';rows.forEach(function(r){var m=r.m,q=r.q,cls=q.b==='BAM'?'bam':q.b==='G&T'?'gt':'mix',cover=(r.occ!==m.p&&r.occ!==m.a);h+='<tr><td><b>'+m.n+'</b></td><td><span class="tag '+cls+'">'+q.b+'</span></td><td>'+q.p+'</td><td>'+(!r.pOk?'<span class="absence-tag">AUSENTE</span> ':'')+nb(m.p)+'</td><td>'+(m.a?(!r.aOk?'<span class="absence-tag">AUSENTE</span> ':'')+nb(m.a):'<span class="small">No aplica</span>')+'</td><td><div class="who '+((r.occ===m.a)?'alt':'')+'">'+(cover?'<span class="coverage-tag">COBERTURA</span> ':'')+nb(r.occ)+'</div></td><td>'+r.free+'</td></tr>'});tabla.innerHTML=h;
-var cs=compSlots(),hc='';comp.forEach(function(m,i){var q=cs[(i+((j%4)+4)%4)%4],present=!isAbsent(m.p);var bancos='<div class="bank-list"><span class="bank-pill">Interbanco</span><span class="bank-pill">Promerica</span><span class="bank-pill">Ficohsa</span>'+(transferOn?'<span class="bank-pill extra">Cuscatlán</span><span class="bank-pill extra">CHN</span>':'')+'</div>';
-var procStr = transferOn ? '<b>Interbanco, Promerica, Ficohsa, CHN y Cuscatlán</b>' : '<b>Interbanco, Promerica y Ficohsa</b>';
-hc+='<tr><td><b>'+m.n+'</b></td><td>'+(!present?'<span class="absence-tag">AUSENTE</span> ':'')+nb(m.p)+'</td><td>'+bancos+'</td><td><span class="tag spec">'+(transferOn?'5 BANCOS':'3 BANCOS')+'</span></td><td>'+procStr+'<br><span class="small">'+q.t+'</span></td><td>'+(present?q.ap:'Cobertura')+'</td></tr>'});tablaComp.innerHTML=hc;
-ciclo.textContent=cycle;var current=rows.map(function(r){return r.q.p}),gt=current.filter(function(x){return x.indexOf('G&T')>=0}).length,bam=current.filter(function(x){return x==='Remesas BAM'}).length,ob=current.filter(function(x){return x.indexOf('óbulos')>=0}).length,pin=current.filter(function(x){return x.indexOf('Piñata')>=0}).length,mix=current.filter(function(x){return x.indexOf('CHN')>=0}).length;gtCount.textContent=gt;bamCount.textContent=bam;obCount.textContent=ob;pinCount.textContent=pin;mixCount.textContent=mix;var count=Object.keys(absent).filter(function(n){return absent[n]}).length;mensaje.innerHTML='<b>Distribución Perfecta 12 Módulos:</b> Posiciones del día calculadas para mantener exactamente la carga solicitada. Rotación recalculada con '+count+' ausencia(s). '+(transferOn?'Transferencia Cuscatlán/CHN activa (+1 G&T). ':'')+(obulosOn?'Refuerzo de óbulos activo (+1 Óbulo).':'');opmsg.innerHTML=(transferOn?'Transferencia Cuscatlán/CHN activa. ':'')+(obulosOn?'Refuerzo de óbulos activo.':'Sin modificaciones especiales activas.')}
-var now=new Date();fecha.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');generar.onclick=gen;fecha.onchange=function(){transferOn=false;obulosOn=false;gen()};transfer.onclick=function(){transferOn=!transferOn;gen()};obulos.onclick=function(){obulosOn=!obulosOn;gen()};pdf.onclick=function(){gen();setTimeout(function(){print()},200)};loginForm.onsubmit=function(e){e.preventDefault();if(pass.value==='97194612'){login.classList.add('hide');document.body.classList.remove('locked')}else loginErr.textContent='Contraseña incorrecta.'};var info={};mods.concat(comp).forEach(function(x){info[x.p]={r:'Módulo '+x.n,f:['Procesar la tarea asignada por fecha.','Rotar por la matriz de 12 posiciones equitativamente.','Apoyar al procedimiento con mayor carga al finalizar.']};if(x.a)info[x.a]={r:'Persona alterna, módulo '+x.n,f:['Alternar la ocupación del módulo.','Cumplir la matriz de posiciones dentro del ciclo de 24 días.','Brindar apoyo cuando no ocupa el módulo.']}});info['William Méndez']={r:'Coordinación y digitación · Módulo 5',f:['Principal: G&T.','Secundario: BAM, CHN y Cuscatlán.','Supervisar remesas G&T e incidencias.','Coordinar coberturas, apoyo y digitación.']};info['Juan Carlos López Ventura']={r:'Coordinación y digitación · Módulo 6',f:['Principal: BAM, Cuscatlán y CHN.','Secundario: G&T.','Supervisar remesas, depósitos y óbulos BAM.','Coordinar ausencias, coberturas y apoyos.']};info['Marco Cifuentes']={r:'Coordinación y digitación · Módulo 18',f:['Principal: Interbanco, Promerica y Ficohsa.','Secundario: CHN, Cuscatlán, BAM y G&T.','Supervisar módulos 14, 15, 17 y 19.','Coordinar clasificado, unificación y transferencias.']};document.addEventListener('click',function(e){if(e.target.dataset&&e.target.dataset.attendance){var n=e.target.dataset.attendance;absent[n]=!absent[n];gen();return}if(e.target.classList.contains('name')){var n=e.target.dataset.name,x=info[n]||{r:'Apoyo operativo',f:['Apoyar según distribución y coordinación.']};mn.textContent=n;mr.textContent=x.r;mf.innerHTML=x.f.map(function(y){return '<li>'+y+'</li>'}).join('');modal.classList.add('open')}});close.onclick=function(){modal.classList.remove('open')};gen()})();</script></body></html>
+
+    comp.forEach(function(m, i){
+      var task = compTasks[(j + i) % 4];
+      var bancosHTML = '<span class="bank-pill">Ficohsa</span><span class="bank-pill">Interbanco</span><span class="bank-pill">Promerica</span>';
+      var extraProcs = '';
+      
+      if(isTransfer){
+        bancosHTML += '<span class="bank-pill" style="background:var(--r)">CHN</span><span class="bank-pill" style="background:var(--r)">Cuscatlán</span>';
+        extraProcs = '<br><span style="color:var(--r); font-weight:bold; font-size:12px;">+ Carga transferida: CHN y Cuscatlán</span>';
+      }
+
+      hc += '<tr><td><b>'+m.n+'</b></td><td>'+nb(m.p)+'</td><td><div style="display:flex; flex-wrap:wrap; gap:3px;">'+bancosHTML+'</div></td><td><span class="tag spec">PROCESO ESPECIAL</span></td><td>'+task + extraProcs + '</td></tr>';
+    });
+
+    tabla.innerHTML = h;
+    tablaComp.innerHTML = hc;
+    
+    gtCount.textContent = counts.gt;
+    bamCount.textContent = counts.bam;
+    obCount.textContent = counts.ob;
+    pinCount.textContent = counts.pin;
+    mixCount.textContent = counts.mix;
+    ciclo.textContent = (j % 12) + 1;
+  }
+
+  var now = new Date();
+  fecha.value = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+  
+  generar.onclick = gen;
+  fecha.onchange = gen;
+  pdf.onclick = function(){ window.print(); };
+
+  loginForm.onsubmit = function(e){
+    e.preventDefault();
+    if(pass.value === '97194612' || pass.value === '1234'){
+      login.classList.add('hide');
+      document.body.classList.remove('locked');
+    } else {
+      loginErr.textContent = 'Contraseña incorrecta.';
+    }
+  };
+
+  document.addEventListener('click', function(e){
+    if(e.target.classList.contains('name')){
+      var n = e.target.dataset.name;
+      mn.textContent = n;
+      mr.textContent = "Perfil Operativo";
+      mf.innerHTML = "<li>Apegarse a la matriz de rotación y reglas del día.</li><li>Atender directrices de coordinadores de área.</li>";
+      
+      if(n === "William"){
+        mr.textContent = "Coordinador de Área";
+        mf.innerHTML = "<li>Encargado de los Módulos 1, 2, 3, 4, 7 y 8.</li><li>Creación y revisión de paquetes de remesas.</li><li>Resolución operativa de descuadres.</li><li>Apoyo constante y transversal al resto de áreas.</li>";
+      } else if(n === "Juan Carlos"){
+        mr.textContent = "Coordinador de Área";
+        mf.innerHTML = "<li>Encargado de los Módulos 9, 10, 11, 12 y 13.</li><li>Ingreso de datos y validaciones en sistema central.</li><li>Revisión sistemática de descuadres.</li><li>Apoyo constante y transversal al resto de áreas.</li>";
+      } else if(n === "Marco Cifuentes"){
+        mr.textContent = "Coordinador de Área y Procesos Especiales";
+        mf.innerHTML = "<li>Encargado de los Módulos 14, 15, 16, 17 y 18.</li><li>Ingreso técnico de datos al sistema.</li><li>Creación, preparación y revisión de paquetes de remesas.</li><li>Análisis de descuadres y soporte general operativo.</li>";
+      }
+      modal.classList.add('open');
+    }
+  });
+  close.onclick = function(){ modal.classList.remove('open'); };
+
+  gen();
+})();
+</script>
+</body>
+</html>
